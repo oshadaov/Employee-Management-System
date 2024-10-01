@@ -4,10 +4,10 @@
     <h2>Employee</h2>
   </div>
   <div class="col-6 text-end ">
-   <button class="btn btn-success">Add new</button>
+   <button class="btn btn-success" (click)="isFormVisible.set(true)">Add new</button>
   </div>
 </div>
-@if(isFormVisible()){}
+@if(isFormVisible()){
   <form class="row g-3">
     <!-- Left Column Fields -->
     <div class="col-md-6">
@@ -20,18 +20,28 @@
       <input type="text" class="form-control" id="contactNo" placeholder="Enter contact number">
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-4">
       <label for="email" class="form-label">Email</label>
       <input type="email" class="form-control" id="email" placeholder="Enter email">
     </div>
 
-    <div class="col-md-6">
-      <label for="department" class="form-label">Department</label>
-      <select class="form-select" id="department">
+    <div class="col-md-4">
+      <label for="depId" class="form-label">Parent Department</label>
+      <select class="form-select" id="depId" name="parentDeptId" (change)="onParentChange()">
+
         <option selected>Select department</option>
-        <option value="HR">HR</option>
-        <option value="IT">IT</option>
-        <option value="Sales">Sales</option>
+        @for (item of parentDeptList(); track $index){
+        <option [value]="item.departmentName">{{item.departmentName}}</option>
+        }
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label for="department" class="form-label">Child Department</label>
+      <select class="form-select" id="depId" name="childDeptId">
+        <option selected>Select department</option>
+        @for (item of childDeptList(); track $index){
+          <option [value]="item.childDeptId">{{item.departmentName}}</option>
+          }
       </select>
     </div>
 
@@ -55,9 +65,12 @@
     </div>
 
     <div class="col-12">
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
+   <button type="submit" class="btn btn-primary mt-3">Submit</button>
+   <button class="btn btn-success mt-3 text-end" (click)="isFormVisible.set(false)">Close</button>
+  </div>
   </form>
+
+}
 
   <!-- Employee List Table -->
   <h2 class="mt-5">Employee List</h2>
