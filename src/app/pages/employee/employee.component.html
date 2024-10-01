@@ -1,0 +1,83 @@
+<div class="container mt-5">
+<div class="row">
+  <div class="col-6 ">
+    <h2>Employee</h2>
+  </div>
+  <div class="col-6 text-end ">
+   <button class="btn btn-success">Add new</button>
+  </div>
+</div>
+@if(isFormVisible()){}
+  <form class="row g-3">
+    <!-- Left Column Fields -->
+    <div class="col-md-6">
+      <label for="employeeName" class="form-label">Employee Name</label>
+      <input type="text" class="form-control" id="employeeName" placeholder="Enter employee name">
+    </div>
+
+    <div class="col-md-6">
+      <label for="contactNo" class="form-label">Contact No</label>
+      <input type="text" class="form-control" id="contactNo" placeholder="Enter contact number">
+    </div>
+
+    <div class="col-md-6">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter email">
+    </div>
+
+    <div class="col-md-6">
+      <label for="department" class="form-label">Department</label>
+      <select class="form-select" id="department">
+        <option selected>Select department</option>
+        <option value="HR">HR</option>
+        <option value="IT">IT</option>
+        <option value="Sales">Sales</option>
+      </select>
+    </div>
+
+    <div class="col-md-6">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" class="form-control" id="password" placeholder="Enter password">
+    </div>
+
+    <div class="col-md-6">
+      <label for="role" class="form-label">Role</label>
+      <input type="text" class="form-control" id="role" placeholder="Enter role">
+    </div>
+
+    <div class="col-md-6">
+      <label for="gender" class="form-label">Gender</label>
+      <select class="form-select" id="gender">
+        <option selected>Select gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+    </div>
+
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+
+  <!-- Employee List Table -->
+  <h2 class="mt-5">Employee List</h2>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Employee ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Contact No</th>
+        <th scope="col">Email</th>
+        <th scope="col">Department</th>
+        <th scope="col">Role</th>
+        <th scope="col">Gender</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+
+
+      <!-- Additional rows can be dynamically generated here -->
+    </tbody>
+  </table>
+</div>
