@@ -12,22 +12,22 @@
     <!-- Left Column Fields -->
     <div class="col-md-6">
       <label for="employeeName" class="form-label">Employee Name</label>
-      <input type="text" class="form-control" id="employeeName" placeholder="Enter employee name">
+      <input type="text" class="form-control" [(ngModel)]="employeeObj.employeeName" name="employeeName" id="employeeName" placeholder="Enter employee name">
     </div>
 
     <div class="col-md-6">
       <label for="contactNo" class="form-label">Contact No</label>
-      <input type="text" class="form-control" id="contactNo" placeholder="Enter contact number">
+      <input type="text" class="form-control"  [(ngModel)]="employeeObj.contactNo" name="contactNo" id="contactNo" placeholder="Enter contact number">
     </div>
 
     <div class="col-md-4">
       <label for="email" class="form-label">Email</label>
-      <input type="email" class="form-control" id="email" placeholder="Enter email">
+      <input type="email" class="form-control"  [(ngModel)]="employeeObj.emailId" name="emailId" id="emailId" placeholder="Enter email">
     </div>
 
     <div class="col-md-4">
       <label for="depId" class="form-label">Parent Department</label>
-      <select class="form-select" id="depId" name="parentDeptId" (change)="onParentChange()">
+      <select class="form-select" id="depId" [(ngModel)]="employeeObj.parentDeptId" name="parentDeptId" (change)="onParentChange()">
 
         <option selected>Select department</option>
         @for (item of parentDeptList(); track $index){
@@ -37,7 +37,7 @@
     </div>
     <div class="col-md-4">
       <label for="department" class="form-label">Child Department</label>
-      <select class="form-select" id="depId" name="childDeptId">
+      <select class="form-select" id="depId" [(ngModel)]="employeeObj.deptId" name="childDeptId">
         <option selected>Select department</option>
         @for (item of childDeptList(); track $index){
           <option [value]="item.childDeptId">{{item.departmentName}}</option>
@@ -47,17 +47,17 @@
 
     <div class="col-md-6">
       <label for="password" class="form-label">Password</label>
-      <input type="password" class="form-control" id="password" placeholder="Enter password">
+      <input type="password" class="form-control" [(ngModel)]="employeeObj.password" name="password" id="password" placeholder="Enter password">
     </div>
 
     <div class="col-md-6">
       <label for="role" class="form-label">Role</label>
-      <input type="text" class="form-control" id="role" placeholder="Enter role">
+      <input type="text" class="form-control" [(ngModel)]="employeeObj.role" name="role" id="role" placeholder="Enter role">
     </div>
 
     <div class="col-md-6">
       <label for="gender" class="form-label">Gender</label>
-      <select class="form-select" id="gender">
+      <select class="form-select" id="gender" name="gender" [(ngModel)]="employeeObj.gender">
         <option selected>Select gender</option>
         <option value="Male">Male</option>
         <option value="Female">Female</option>
@@ -65,7 +65,14 @@
     </div>
 
     <div class="col-12">
-   <button type="submit" class="btn btn-primary mt-3">Submit</button>
+      @if(this.employeeObj.employeeId == 0){
+        <button type="submit" class="btn btn-primary mt-3" (click)="onSave()">Save Employee</button>
+      } @else{
+        <button type="submit" class="btn btn-warning mt-3" (click)="onUpdate()">Update Employee</button>
+
+      }
+
+
    <button class="btn btn-success mt-3 text-end" (click)="isFormVisible.set(false)">Close</button>
   </div>
   </form>
@@ -77,20 +84,33 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th scope="col">Employee ID</th>
+        <th scope="col">Sr No</th>
         <th scope="col">Name</th>
         <th scope="col">Contact No</th>
         <th scope="col">Email</th>
         <th scope="col">Department</th>
         <th scope="col">Role</th>
-        <th scope="col">Gender</th>
+
         <th scope="col">Actions</th>
       </tr>
     </thead>
     <tbody>
+      @for(item of employeetList(); track $index){
+        <tr>
+          <td>{{$index+1}}</td>
+          <td>{{item.employeeName}}</td>
+          <td>{{item.contactNo}}</td>
+          <td>{{item.emailId}}</td>
+          <td>{{item.deptId}}</td>
+          <td>{{item.role}}</td>
+          <td>
+            <button type="button" class="btn btn-primary mt-3" (click)="onEdit(item)">Edit</button>
+            <button type="button" class="btn btn-primary mt-3" (click)="onDelete(item.employeeId)">Delete</button>
+          </td>
+        </tr>
+      }
 
 
-      <!-- Additional rows can be dynamically generated here -->
     </tbody>
   </table>
 </div>
