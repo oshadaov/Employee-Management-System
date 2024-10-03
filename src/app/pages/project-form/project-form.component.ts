@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Employee } from '../../model/class/Employee';
 import { MasterService } from '../../service/master.service';
 import { AsyncPipe } from '@angular/common';
+import { IProject } from '../../model/interface/master';
 
 @Component({
   selector: 'app-project-form',
@@ -17,10 +18,11 @@ export class ProjectFormComponent {
 
   projectForm : FormGroup = new FormGroup({});
 
-  employeeList: Observable<Employee[]> = new Observable<[]>;
+  emplList$: Observable<Employee[]> = new Observable<[]>;
   masterSrv= inject(MasterService);
 
   constructor(){
+    this.emplList$ = this.masterSrv.getAllEmp();
     this.initializeForm();
   }
 
@@ -37,4 +39,16 @@ export class ProjectFormComponent {
     })
   }
 
+  onSaveProject(){
+    const formValue = this.projectForm.value;
+    this.masterSrv.saveProject(formValue).subscribe((res : IProject)=>{
+      debugger;
+       alert("Employee Updated")
+
+       this.projectForm.reset();
+
+    },error =>{
+      alert('Api error')
+    })
+  }
 }

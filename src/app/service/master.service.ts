@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IApiResponse } from '../model/interface/master';
+import { IApiResponse, IProject } from '../model/interface/master';
 import { Employee } from '../model/class/Employee';
 
 @Injectable({
@@ -33,6 +33,14 @@ export class MasterService {
   deleteEmpById(id : number): Observable<IApiResponse>{
     debugger;
      return this.http.delete<IApiResponse>(this.apiUrl+"DeleteEmployee/"+id);
+  }
+  saveProject(obj:Employee): Observable<IProject>{
+    debugger;
+     return this.http.post<IProject>(this.apiUrl+"CreateProject",obj);
+  }
+
+  getAllProjects(): Observable<IProject[]>{
+    return this.http.get<IProject[]>(`${this.apiUrl}GetAllProjects`);
   }
 }
 

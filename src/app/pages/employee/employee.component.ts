@@ -68,6 +68,7 @@ export class EmployeeComponent implements OnInit {
       alert('Api error')
     })
   }
+  
   onDelete(id:number ){
     const isDelete = confirm("Are you sure want to Delete")
     if(isDelete){
