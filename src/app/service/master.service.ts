@@ -38,10 +38,15 @@ export class MasterService {
     debugger;
      return this.http.post<IProject>(this.apiUrl+"CreateProject",obj);
   }
+  updateProject(obj:IProject): Observable<IProject>{
+    debugger;
+     return this.http.put<IProject>(this.apiUrl+"UpdateProject/"+obj.projectId,obj);
+  }
 
   getAllProjects(): Observable<IProject[]>{
     return this.http.get<IProject[]>(`${this.apiUrl}GetAllProjects`);
   }
+  getProjectById(id:number): Observable<IProject>{
+    return this.http.get<IProject>(this.apiUrl+"GetProject/"+id);
+  }
 }
-
-

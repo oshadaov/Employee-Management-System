@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { IProject } from '../../model/interface/master';
 import { MasterService } from '../../service/master.service';
 
@@ -13,7 +13,9 @@ import { MasterService } from '../../service/master.service';
 export class ProjectComponent implements OnInit{
 
   projectList : IProject[] = [];
-  masterSrv = inject(MasterService)
+  masterSrv = inject(MasterService);
+  router = inject(Router)
+
   ngOnInit(): void {
     this.getProjects();
   }
@@ -22,5 +24,11 @@ export class ProjectComponent implements OnInit{
       this.projectList = Res;
     }
   );
+  }
+  onEdit(id : number){
+    this.router.navigate(['new-project',id])
+  }
+  onDelete(id : number){
+
   }
 }

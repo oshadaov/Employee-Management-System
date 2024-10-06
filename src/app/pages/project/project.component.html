@@ -31,8 +31,8 @@
                   <td>{{item.startDate}}</td>
                   <td>{{item.leadByEmpId}}</td>
                   <td>
-                    <button type="button" class="btn btn-primary mt-3" >Edit</button>
-                    <button type="button" class="btn btn-danger mt-3">Delete</button>
+                    <button type="button" class="btn btn-primary mt-3" (click)="onEdit(item.projectId)">Edit</button>
+                    <button type="button" class="btn btn-danger mt-3"(click)="onDelete(item.projectId)">Delete</button>
                   </td>
                  </tr>
                 }

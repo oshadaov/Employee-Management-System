@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Employee } from '../../model/class/Employee';
 import { MasterService } from '../../service/master.service';
@@ -20,26 +20,53 @@ export class ProjectFormComponent {
 
   emplList$: Observable<Employee[]> = new Observable<[]>;
   masterSrv= inject(MasterService);
+  activatedRouter = inject(ActivatedRoute)
 
   constructor(){
     this.emplList$ = this.masterSrv.getAllEmp();
     this.initializeForm();
-  }
-
-  initializeForm(){
-    this.projectForm = new FormGroup({
-      projectId : new FormControl(0),
-      projectName : new FormControl('',[Validators.required]),
-      clientName: new FormControl(''),
-      startDate: new FormControl(''),
-      leadByEmpId: new FormControl(''),
-      contactPerson: new FormControl(''),
-      contactNo: new FormControl(''),
-      emailId: new FormControl(''),
+    this.activatedRouter.params.subscribe((res:any)=>{
+      if(res.id !=0){
+        this.getProject(res.id)
+      }
     })
   }
 
+  initializeForm(data?:IProject){
+    this.projectForm = new FormGroup({
+      projectId : new FormControl(data ? data.projectId:0),
+      projectName : new FormControl(data ? data.projectName:''),
+      clientName: new FormControl(data ? data.clientName:''),
+      startDate: new FormControl(data ? data.startDate:''),
+      leadByEmpId: new FormControl(data ? data.leadByEmpId:''),
+      contactPerson: new FormControl(data ? data.contactPerson:''),
+      contactNo: new FormControl(data ? data.contactNo:''),
+      emailId: new FormControl(data ? data.emailId:''),
+    })
+  }
+ getProject(id:number){
+    this.masterSrv.getProjectById(id).subscribe((res : IProject)=>{
+      debugger;
+
+       this.initializeForm(res)
+
+    },error =>{
+      alert('Api error')
+    })
+  }
   onSaveProject(){
+    const formValue = this.projectForm.value;
+    this.masterSrv.saveProject(formValue).subscribe((res : IProject)=>{
+      debugger;
+       alert("Project created")
+
+       this.projectForm.reset();
+
+    },error =>{
+      alert('Api error')
+    })
+  }
+  onUpdate(){
     const formValue = this.projectForm.value;
     this.masterSrv.saveProject(formValue).subscribe((res : IProject)=>{
       debugger;

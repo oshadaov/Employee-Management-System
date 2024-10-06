@@ -40,7 +40,11 @@
                 <input type="text" class="form-control" formControlName="EmailId" id="EmailIdProject" placeholder="Enter contact number">
             </div>
           </div>
-          <button type="button" (click)="onSaveProject()" class="btn btn-primary mt-3">Submit</button>
+          @if(projectForm.controls['projectId'].value ==0){
+            <button type="button" (click)="onSaveProject()" class="btn btn-primary mt-3">Save Project</button>
+          } @else{
+            <button type="button" (click)="onUpdate()" class="btn btn-warning mt-3">Update Project</button>
+          }
       </form>
     </div>
   </div>
