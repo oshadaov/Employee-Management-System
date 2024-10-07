@@ -48,14 +48,20 @@
               <div class="col-md-6">
                   <label for="projectId" class="form-label">Project ID</label>
                 <select class="form-select" formControlName="projectId">
-
+                  <option value="">Select </option>
+                  @for(item of projectList$ |async; track $index){
+                    <option [value]="item.projectId">{{item.projectName}}</option>
+                  }
                 </select>
 
               </div>
               <div class="col-md-6">
                   <label for="empId" class="form-label">Employee ID</label>
                   <select class="form-select" formControlName="empId">
-
+                    <option value="">Select </option>
+                    @for(item of Emplist$ |async; track $index){
+                      <option [value]="item.employeeId">{{item.employeeName}}</option>
+                    }
                   </select>
               </div>
           </div>
@@ -73,7 +79,7 @@
                 <input type="checkbox"  formControlName="isActive" id="roleProjectEmployee" placeholder="Enter role">
             </div>
           </div>
-          <button type="submit" class="btn btn-primary mt-3">Submit</button>
+          <button type="button" (click)="onSave()" class="btn btn-primary mt-3">Submit</button>
       </form>
       </div>
     </div>

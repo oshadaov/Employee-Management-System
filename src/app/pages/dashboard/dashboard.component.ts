@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component,inject, OnInit } from '@angular/core';
+import { MasterService } from '../../service/master.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,6 +8,14 @@ import { Component } from '@angular/core';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit{
 
+  dashboardData : any;
+
+  masterSrv = inject(MasterService)
+  ngOnInit(): void {
+      this.masterSrv.getDashBoardData().subscribe((Res:any)=>{
+        this.dashboardData = Res;
+      })
+  }
 }

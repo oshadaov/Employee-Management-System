@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Employee } from '../../model/class/Employee';
@@ -26,7 +26,7 @@ export class ProjectFormComponent {
     this.emplList$ = this.masterSrv.getAllEmp();
     this.initializeForm();
     this.activatedRouter.params.subscribe((res:any)=>{
-      if(res.id !=0){
+      if(res.id !==0){
         this.getProject(res.id)
       }
     })
@@ -54,28 +54,25 @@ export class ProjectFormComponent {
       alert('Api error')
     })
   }
-  onSaveProject(){
+  onSaveProject() {
     const formValue = this.projectForm.value;
-    this.masterSrv.saveProject(formValue).subscribe((res : IProject)=>{
+    this.masterSrv.saveProject(formValue).subscribe((res: IProject) => {
       debugger;
-       alert("Project created")
-
-       this.projectForm.reset();
-
-    },error =>{
-      alert('Api error')
-    })
+      alert('Project created');
+      this.projectForm.reset();
+    }, error => {
+      alert('API error 404');
+    });
   }
-  onUpdate(){
+  onUpdate() {
     const formValue = this.projectForm.value;
-    this.masterSrv.saveProject(formValue).subscribe((res : IProject)=>{
+    // Make sure to call updateProject here for updating
+    this.masterSrv.updateProject(formValue).subscribe((res: IProject) => {
       debugger;
-       alert("Employee Updated")
-
-       this.projectForm.reset();
-
-    },error =>{
-      alert('Api error')
-    })
+      alert('Project updated');
+      this.projectForm.reset();
+    }, error => {
+      alert('API error');
+    });
   }
 }

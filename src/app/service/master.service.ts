@@ -34,9 +34,8 @@ export class MasterService {
     debugger;
      return this.http.delete<IApiResponse>(this.apiUrl+"DeleteEmployee/"+id);
   }
-  saveProject(obj:Employee): Observable<IProject>{
-    debugger;
-     return this.http.post<IProject>(this.apiUrl+"CreateProject",obj);
+  saveProject(obj: IProject): Observable<IProject> {
+    return this.http.post<IProject>(`${this.apiUrl}CreateProject`, obj);
   }
   updateProject(obj:IProject): Observable<IProject>{
     debugger;
@@ -60,5 +59,9 @@ export class MasterService {
     debugger;
      return this.http.put<IProjectEmployee>(this.apiUrl+"UpdateProjectEmployee/"+obj.empProjectId,obj);
   }
+  getDashBoardData(): Observable<any[]>{
+    return this.http.get<any>(`${this.apiUrl}GetDashboard`);
+  }
+
 }
 

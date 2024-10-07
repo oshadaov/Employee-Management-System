@@ -22,7 +22,7 @@
               </div>
               <div class="col-md-4">
                   <label for="leadByEmpId" class="form-label">Lead By Employee ID</label>
-                  <select class="form-select" id="employeeSelect">
+                  <select class="form-select" formControlName="leadByEmpId">
                    <option value="">Select</option>
                    @for(item of emplList$ | async; track $index){
                     <option [value]="item.employeeId">{{item.employeeName}}</option>
